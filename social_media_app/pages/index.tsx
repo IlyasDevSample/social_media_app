@@ -1,9 +1,13 @@
-import { Inter } from '@next/font/google'
+import React from 'react'
 
-export default function Home() {
+const Home = () => {
     return (
-        <h1 className="text-3xl font-bold underline text-blue-400">
-            Hello World! from Next.js
-        </h1>
+        <div>
+            <h1 className="text-3xl font-bold underline text-blue-400">
+                Hello World! from Next.js
+            </h1>
+        </div>
     )
 }
+
+export default Home
