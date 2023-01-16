@@ -3,7 +3,7 @@ import { Inter } from '@next/font/google'
 export default function Home() {
     return (
         <h1 className="text-3xl font-bold underline text-blue-400">
-            Hello World
+            Hello World! from Next.js
         </h1>
     )
 }
