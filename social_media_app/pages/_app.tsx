@@ -27,9 +27,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <meta name="keywords" content="facebook, twitter, tikTok" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
+            
             <Navbar />
-            <div className='flex gap-6 md:gap-20 container m-auto'>
+            <div className='flex gap-6 md:gap-20 '>
                 <div className='h-[92vh] overflow-hidden xl:hover:overflow-y-auto'>
                     <Sidebar />
                 </div>

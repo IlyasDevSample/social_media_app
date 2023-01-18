@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
 import { ImCancelCircle } from 'react-icons/im'
-import { FacebookLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Discover from './Discover'
 import SuggestedAccounts from './SuggestedAccounts'
@@ -41,7 +41,7 @@ const Sidebar = () => {
                         <div className='px-2 py-4 hidden xl:block'>
                             <p className='text-gray-400'>Log in to follow creators, like videos, and view comments.</p>
                             <div className='pr-4 mt-4'>
-                                <FacebookLoginButton onClick={() => signIn("facebook")} style={{margin: 0}} />
+                                <GoogleLoginButton onClick={() => signIn("google")} style={{margin: 0}} />
                             </div>
                         </div>
                     )}
