@@ -44,11 +44,6 @@ export default {
             name: 'topic',
             title: 'Topic',
             type: 'string',
-        },
-        {
-            name: 'createdAt',
-            title: 'Created At',
-            type: 'datetime',
         }
     ]
 }
