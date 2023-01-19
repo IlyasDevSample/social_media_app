@@ -4,13 +4,14 @@ import { GetServerSideProps } from 'next'
 import { IPost } from '../utils/types'
 import VideoCard from '@/components/VideoCard'
 import NoResults from '@/components/NoResults'
+import { NextPage } from 'next'
 
 interface IProps {
     posts: IPost[]
 }
 
-const Home = ({ posts }: IProps) => {
-    // posts= []
+const Home: NextPage<IProps> = ({ posts }) => {
+    
     return (
         <div className='flex flex-col gap-10 videos h-full'>
             {posts.length ?
