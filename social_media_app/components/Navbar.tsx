@@ -5,13 +5,11 @@ import { useRouter } from 'next/router'
 import { AiOutlineLogout } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { IoMdAdd } from "react-icons/io";
-import { useSession } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 
 const Navbar = () => {
-    const { data: session }= useSession()
-    console.log(session)
-
+    const { data: session } = useSession();
 
     return (
         <div className="border-b-2 border-gray-200">
@@ -27,7 +25,15 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    User Profile
+                    {session ?
+                        <div>
+                            {session.user?.name}
+                            <button onClick={() => signOut()}>Logout</button>
+                        </div> 
+                    : 
+                        <div>
+                            <button onClick={() => signIn('google')}>Login</button>
+                        </div>}
                 </div>
             </div>
         </div>

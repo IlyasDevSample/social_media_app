@@ -11,10 +11,10 @@ import SuggestedAccounts from './SuggestedAccounts'
 import Footer from './Footer'
 
 const Sidebar: NextPage = () => {
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
     const [showSidebar, setShowSidebar] = useState(true)
     const normalLink = 'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start rounded-xl xl:rounded cursor-pointer font-semibold text-[#FE8088]'
-    const userProfile = false
+
 
     return (
         <div>
@@ -37,7 +37,7 @@ const Sidebar: NextPage = () => {
                             </div>
                         </Link>
                     </div>
-                    {!userProfile && (
+                    {!session && (
                         <div className='px-2 py-4 hidden xl:block'>
                             <p className='text-gray-400'>Log in to follow creators, like videos, and view comments.</p>
                             <div className='pr-4 mt-4'>

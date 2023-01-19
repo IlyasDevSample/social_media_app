@@ -58,11 +58,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                         <Link href="/">
                             <div className='flex items-center gap-2'>
                                 <p className='flex gap-2 items-center md:text-sm font-bold text-primary'>
-                                    {post.postedBy.userName}
+                                    {post.postedBy.userName.split('@')[0]}
                                     <GoVerified className='text-blue-400 text-sm' />
                                 </p>
                                 <p className='capitalize font-medium text-xs text-gray-500 hidden md:block'>
-                                    {post.postedBy.userName}
+                                    {post.postedBy.userName.split('@')[0]}
                                 </p>
                             </div>
                         </Link>

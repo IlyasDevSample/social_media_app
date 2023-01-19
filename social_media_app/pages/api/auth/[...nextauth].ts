@@ -7,8 +7,9 @@ import { client as sanityClient } from "../../../utils/sanityClient"
 type User = {
     _id: string,
     userName: string,
-    imageUrl: string,
+    imageURL: string,
 }
+let userExists: User[] = [];
 
 export default NextAuth({
     providers: [
@@ -21,28 +22,28 @@ export default NextAuth({
         async signIn({ user, account, profile }) {
             const { email, image } = user
 
-            const userExists: User[] = await sanityClient
+            // check if user exists in db
+            userExists = await sanityClient
                 .fetch(`*[_type == "user" && userName== "${email}"]{_id, userName, imageURL}`)
 
+            // if not, create user and add to userExists array
             if (userExists.length === 0) {
-                const newUser = {
-                    _type: 'user',
+                const res = await sanityClient.create({
+                    _type: "user",
                     userName: email,
                     imageURL: image,
-                }
-                await sanityClient.create(newUser)
+                })
+                userExists.push({ _id: res._id, userName: res.userName as string, imageURL: res.imageURL as string })
             }
 
             return true
         },
         async jwt({ token, user }) {
             // add properties to token on sign in 
-            const userDb: User[] = await sanityClient
-                .fetch(`*[_type == "user" && userName== "${user?.email}"]{_id, userName, imageURL}`)
 
-            if (userDb.length > 0) {
+            if (userExists.length > 0) {
                 // add provider user id to token
-                token.id = userDb[0]._id
+                token.id = userExists[0]._id
             }
             return token
         },
