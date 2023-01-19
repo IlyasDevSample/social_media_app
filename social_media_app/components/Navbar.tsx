@@ -25,15 +25,26 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    {session ?
-                        <div>
-                            {session.user?.name}
-                            <button onClick={() => signOut()}>Logout</button>
+                    {session &&
+                        <div className='flex gap-4 md:gap-10 items-center justify-center'>
+                            <Link href='/upload'>
+                                <button className='border-2 px-2 md:px-4 py-2 text-sm font-semibold text-gray-500 flex items-center justify-center gap-2 rounded-md'>
+                                    <IoMdAdd className='text-2xl' />
+                                    <span className='hidden md:block'>Upload</span>
+                                </button>
+                            </Link>
+
+                            <Link href='/profile' className='flex items-center justify-center'>
+                                <button>
+                                    <Image className='rounded-full cursor-pointer' src={session?.user?.image as string} alt="profile picture" width={40} height={40} />
+                                </button>
+                            </Link>
+
+                            <button onClick={() => signOut()} className='transition hover:bg-primary bg-slate-50 p-2 rounded-md' >
+                                <AiOutlineLogout className='text-2xl' color='red' fontSize={21}/>
+                            </button>
                         </div> 
-                    : 
-                        <div>
-                            <button onClick={() => signIn('google')}>Login</button>
-                        </div>}
+                    }
                 </div>
             </div>
         </div>
