@@ -2,7 +2,7 @@ import React from 'react'
 import { footerList1, footerList2, footerList3 } from "../utils/constants";
 
 const List = ({ items, mt }: { items: string[], mt: boolean }) => {
-    console.log(mt)
+
     return (
         <div className={`flex flex-wrap gap-2 ${mt && 'mt-5'}`}>
             {items.map((item, i) => (

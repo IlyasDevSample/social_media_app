@@ -10,7 +10,7 @@ import Discover from './Discover'
 import SuggestedAccounts from './SuggestedAccounts'
 import Footer from './Footer'
 
-const Sidebar = () => {
+const Sidebar: NextPage = () => {
     const { data: session, status } = useSession()
     const [showSidebar, setShowSidebar] = useState(true)
     const normalLink = 'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start rounded-xl xl:rounded cursor-pointer font-semibold text-[#FE8088]'

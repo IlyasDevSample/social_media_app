@@ -2,6 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { topics } from "../utils/constants";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const Discover = () => {
     const router = useRouter()
@@ -20,7 +22,7 @@ const Discover = () => {
                     <Link href={`/?topics=${topic.name.toLowerCase()}`} key={topic.name}>
                         <div className={activeTopic == topic.name.toLowerCase() ? activeTopicStyle : inactiveTopicStyle}>
                             <span className='font-bold text-2xl xl:text-xl'>
-                                {topic.icon}
+                                <FontAwesomeIcon icon={topic.icon}/>
                             </span>
                             <span className='font-medium text-sm hidden xl:block capitalize'>
                                 {topic.name}

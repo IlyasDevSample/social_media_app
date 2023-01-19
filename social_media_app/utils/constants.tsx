@@ -1,39 +1,42 @@
-import { BsCode, BsEmojiSunglasses } from 'react-icons/bs';
-import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
-import { FaPaw, FaMedal, FaGamepad } from 'react-icons/fa';
+import { IconDefinition, faCode, faMasksTheater, faGamepad, faBurger, faVolleyball, faPaw, faCakeCandles, faFaceSmileBeam } from '@fortawesome/free-solid-svg-icons'
 
-export const topics = [
+type Topic = {
+  name: string;
+  icon: IconDefinition;
+}
+
+export const topics: Topic[] = [
   {
     name: 'coding',
-    icon: <BsCode />,
+    icon: faCode,
   },
   {
     name: 'comedy',
-    icon: <BsEmojiSunglasses />,
+    icon: faMasksTheater,
   },
   {
     name: 'gaming',
-    icon: <FaGamepad />,
+    icon: faGamepad,
   },
   {
     name: 'food',
-    icon: <GiCakeSlice />,
+    icon: faBurger,
   },
   {
     name: 'dance',
-    icon: <GiGalaxy />,
+    icon: faCakeCandles,
   },
   {
     name: 'beauty',
-    icon: <GiLipstick />,
+    icon: faFaceSmileBeam,
   },
   {
     name: 'animals',
-    icon: <FaPaw />,
+    icon: faPaw,
   },
   {
     name: 'sports',
-    icon: <FaMedal />,
+    icon: faVolleyball,
   },
 ];
 

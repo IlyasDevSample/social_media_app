@@ -1,29 +1,29 @@
 export const allPostsQuery = () => {
     const query = `*[_type == "post"] | order(_createdAt desc){
-      _id,
-       caption,
-         video{
-          asset->{
-            _id,
-            url
-          }
+        _id,
+        caption,
+        video{
+            asset->{
+                _id,
+                url
+            }
         },
         userId,
         postedBy->{
-          _id,
-          userName,
-          image
+            _id,
+            userName,
+            imageURL
         },
-      likes,
-      comments[]{
-        comment,
-        _key,
-        postedBy->{
-        _id,
-        userName,
-        image
-      },
-      }
+        likes[],
+        comments[]->{
+            _id,
+            commentText,
+            postedBy->{
+                _id,
+                userName,
+                imageURL
+            }
+        }
     }`;
 
     return query;

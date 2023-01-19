@@ -4,8 +4,8 @@ export default {
     type: 'document',
     fields: [
         {
-            name: 'comment',
-            title: 'Comment',
+            name: 'commentText',
+            title: 'Comment Text',
             type: 'string',
         },
         {
