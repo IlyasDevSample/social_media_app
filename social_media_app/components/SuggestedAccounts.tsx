@@ -2,7 +2,7 @@ import React from 'react'
 
 const SuggestedAccounts = () => {
     return (
-        <div>SuggestedAccounts</div>
+        <div className='hidden xl:block'>SuggestedAccounts</div>
     )
 }
 

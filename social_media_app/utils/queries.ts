@@ -23,7 +23,8 @@ export const allPostsQuery = () => {
                 userName,
                 imageURL
             }
-        }
+        },
+        topic
     }`;
 
     return query;

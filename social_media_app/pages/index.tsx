@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
 import { IPost } from '../utils/types'
@@ -11,13 +11,14 @@ interface IProps {
 }
 
 const Home: NextPage<IProps> = ({ posts }) => {
-    
+    const [isMuted, setIsMuted] = useState(false)
+
     return (
         <div className='flex flex-col gap-10 videos h-full'>
             {posts.length ?
 
                 posts.map((post: IPost) => (
-                    <VideoCard key={post._id} post={post} />
+                    <VideoCard key={post._id} post={post}  isMuted={isMuted} setIsMuted={setIsMuted} />
                 ))
                 :
                 <NoResults text='No posts yet be the first and post something now' />

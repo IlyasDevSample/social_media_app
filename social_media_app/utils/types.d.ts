@@ -33,4 +33,5 @@ export interface IPost {
     postedBy: postedBy;
     userId: string;
     video: video;
+    topic: string;
 };
