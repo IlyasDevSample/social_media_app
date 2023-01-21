@@ -53,7 +53,7 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
                 }
             },
             {
-                threshold: 0.8,
+                threshold: 0.7,
                 rootMargin: `0px 0px ${600 - height}px 0px`
             }
         )
@@ -123,22 +123,22 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
                         >
 
                             {isPlaying ? (
-                                <button onClick={handlePlay} className=' bg-gray-200 rounded-full p-1'>
+                                <button onClick={handlePlay} className=' bg-gray-200 rounded-full p-1 opacity-75'>
                                     <BsFillPauseFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
                                 </button>
                             ) :
                                 (
-                                    <button onClick={handlePlay} className='bg-gray-200 rounded-full p-1'>
+                                    <button onClick={handlePlay} className='bg-gray-200 rounded-full p-1 opacity-75'>
                                         <BsFillPlayFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
                                     </button>
                                 )}
                             {isMuted ? (
-                                <button onClick={handleMute} className='bg-gray-200 rounded-full p-1'>
+                                <button onClick={handleMute} className='bg-gray-200 rounded-full p-1 opacity-75'>
                                     <HiVolumeOff className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
                                 </button>
                             ) :
                                 (
-                                    <button onClick={handleMute} className='bg-gray-200 rounded-full p-1'>
+                                    <button onClick={handleMute} className='bg-gray-200 rounded-full p-1 opacity-75'>
                                         <HiVolumeUp className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
                                     </button>
                                 )}

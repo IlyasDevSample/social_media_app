@@ -68,8 +68,8 @@ const Upload: NextPageWithLayout = () => {
 
 
     return (
-        <div className='min-h-[100vh] bg-[#f8f8f8] flex justify-center items-center'>
-            <div className="bg-white lg:rounded-lg h-fit w-full lg:w-[1000px] flex justify-center px-14 py-8 flex-wrap md:flex-nowrap">
+        <div className='h-[100vh] bg-[#f8f8f8] flex justify-center items-start'>
+            <div className="bg-white lg:rounded-lg w-full lg:w-[1000px] flex justify-center px-14 py-4 mt-1 flex-wrap md:flex-nowrap">
                 <div>
                     <div>
                         <p className='text-2xl font-bold'>Upload Video</p>
