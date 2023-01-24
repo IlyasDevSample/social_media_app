@@ -32,7 +32,7 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)
-    const response = await axios.get('http://localhost:3000/api/post')
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
     const data = await response.data
 
     return {

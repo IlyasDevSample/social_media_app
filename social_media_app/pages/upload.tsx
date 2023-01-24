@@ -171,7 +171,9 @@ Upload.getLayout = (page: ReactElement) => {
             </Head>
             <div className='overflow-hidden h-[100vh]'>
                 <Navbar />
-                {page}
+                <div className='overflow-x-auto h-[100vh]'>
+                    {page}
+                </div>
 
             </div>
         </>
