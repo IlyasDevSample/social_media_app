@@ -90,7 +90,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <SessionProvider session={pageProps.session}>
             <Head>
                 <title>TIKI TAKA</title>
-                <meta name="description" content="Tiki taka is a social media it's an amazing platform to share your thoughts and ideas with the world. It's a great place to share your thoughts and ideas with the world and to connect with people from all over the world." />
+                <meta name="description" content="Tiki taka is a social media app, it's an amazing platform to share your thoughts and ideas with the world. It's a great place to share your thoughts and ideas with the world and to connect with people from all over the world." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="keywords" content="facebook, twitter, tikTok" />
                 <link rel="icon" href="/favicon.ico" />
