@@ -21,7 +21,7 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
     const [isPlaying, setIsPlaying] = useState(true)
     const videoRef = useRef<HTMLVideoElement>(null)
     const { height, width } = useWindowDimensions();
-    console.log(height, width)
+    
     const handlePlay = () => {
         if (videoRef?.current?.paused) {
             videoRef.current.play()
