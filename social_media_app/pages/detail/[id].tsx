@@ -14,6 +14,7 @@ import Navbar from '@/components/Navbar'
 import { IPost } from '../../utils/types'
 import { useSession, signIn } from 'next-auth/react'
 import LikeButton from '@/components/LikeButton'
+import Comments from '@/components/Comments'
 
 interface Props {
     postData: IPost
@@ -27,8 +28,8 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(true)
     const [isMuted, setIsMuted] = useState<boolean>(false)
     const router = useRouter()
-    const { data: session } = useSession()
-
+    const { data: session }: any = useSession()
+    
 
     const onVideoClick = useCallback(() => {
         if (videoRef.current) {
@@ -54,11 +55,26 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
         }
     }, [onVideoClick])
 
+    const handleLike = async (like: boolean) => {
+        console.log('like: ',like)
+        if (session) {
+            const response = await axios.put(`/api/like`, {
+                userId: session?.user?.id,
+                postId: post._id,
+                like,
+            })
+        } 
+    }
+
+    const handleDislike = async (like: boolean) => {
+        console.log('dislike: ', like)
+    }
+
     return (
         <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap '>
             <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center'>
                 <div className='absolute top-6 left-2 lg:left-6 flex gap-6 z-50 '>
-                    <p onClick={() => router.back()}>
+                    <p onClick={() => router.replace('/')}>
                         <MdOutlineCancel className='text-white text-2xl lg:text-3xl cursor-pointer' />
                     </p>
                 </div>
@@ -142,7 +158,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
 
 
                         </p>
-                        <div className='mt-10 px-10'>
+                        <div className='mt-10 px-0'>
                             {!session ? (
                                 <div className='flex justify-center items-center'>
                                     <p className='text-sm text-gray-500 font-semibold'>
@@ -153,9 +169,10 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                                     </p>
                                 </div>)
                                 : (
-                                    <LikeButton />
+                                    <LikeButton handleLike={handleLike} handleDislike={handleDislike} />
                                 )}
                         </div>
+                        <Comments />
                     </div>
                 </div>
             </div>
