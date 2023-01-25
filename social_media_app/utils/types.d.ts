@@ -6,10 +6,11 @@ type postedBy = {
     userName: string
 }
 
-type comment = {
+export type comment = {
     _id: string,
     commentText: string,
     postedBy: postedBy;
+    createdAt: any;
 }
 
 export type like = {

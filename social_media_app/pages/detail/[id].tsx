@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, use, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
@@ -29,6 +29,8 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
     const [isMuted, setIsMuted] = useState<boolean>(false)
     const router = useRouter()
     const { data: session }: any = useSession()
+    const [inputIsOnFocus, setInputIsOnFocus] = useState<boolean>(false)
+    const [isPosingComment, setIsPosingComment] = useState<boolean>(false)
     
 
     const onVideoClick = useCallback(() => {
@@ -49,11 +51,12 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                 onVideoClick()
             }
         }
+        if(inputIsOnFocus) return
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [onVideoClick])
+    }, [onVideoClick, inputIsOnFocus])
 
     const handleLike = async (like: boolean) => {
         
@@ -85,8 +88,23 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
         }
     }
 
+    const handleComment = async (comment: string) => {
+        if (session) {
+            const response = await axios.put(`/api/post/${post._id}`, {
+                userId: session?.user?.id,
+                comment,
+            })
+
+            if (response.status === 200) {
+                setPost((prev) => ({ ...prev, comments: response.data.comments }))
+                setIsPosingComment(false)
+            }
+        }
+    }
+
+
     return (
-        <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap '>
+        <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap justify-center items-center '>
             <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center'>
                 <div className='absolute top-6 left-2 lg:left-6 flex gap-6 z-50 '>
                     <p onClick={() => router.replace('/')}>
@@ -133,7 +151,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                     )}
                 </div>
             </div>
-            <div className='relative w-[1000px] md:w-[900px] lg:w-[500px]'>
+            <div className='relative w-[1000px] md:w-[900px] lg:w-[500px] overflow-y-scroll lg:h-[100vh] pb-2'>
                 <div className='lg:mt-20 mt-10'>
                     <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
                         <div className="md:w-16 md:h-16 w-16 h-16 ml-4 ">
@@ -187,7 +205,13 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                                     <LikeButton handleLike={handleLike} handleDislike={handleDislike} likes={post.likes} />
                                 )}
                         </div>
-                        <Comments />
+                        <Comments 
+                                commentsList={[...post.comments].reverse()} 
+                                setInputIsOnFocus={setInputIsOnFocus}
+                                handleComment={handleComment}
+                                isPosingComment={isPosingComment}
+                                setIsPosingComment={setIsPosingComment}
+                                />
                     </div>
                 </div>
             </div>
@@ -217,6 +241,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return {
             notFound: true
         }
+    }
+
+    if (!data.data.comments) {
+        data.data.comments = []
     }
 
     return {
