@@ -12,7 +12,7 @@ type comment = {
     postedBy: postedBy;
 }
 
-type like = {
+export type like = {
     _key: string,
     _ref: string,
     _type: string

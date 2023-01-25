@@ -56,18 +56,33 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
     }, [onVideoClick])
 
     const handleLike = async (like: boolean) => {
-        console.log('like: ',like)
+        
         if (session) {
             const response = await axios.put(`/api/like`, {
                 userId: session?.user?.id,
                 postId: post._id,
                 like,
             })
-        } 
+
+            if (response.status === 200) {
+                setPost({ ...post, likes: response.data.likes })
+            }
+        }
     }
 
     const handleDislike = async (like: boolean) => {
-        console.log('dislike: ', like)
+        
+        if (session) {
+            const response = await axios.put(`/api/like`, {
+                userId: session?.user?.id,
+                postId: post._id,
+                like,
+            })
+
+            if (response.status === 200) {
+                setPost({ ...post, likes: response.data.likes })
+            }
+        }
     }
 
     return (
@@ -120,15 +135,15 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
             </div>
             <div className='relative w-[1000px] md:w-[900px] lg:w-[500px]'>
                 <div className='lg:mt-20 mt-10'>
-                    <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
-                        <div className="md:w-16 md:h-16 w-16 h-16 ml-4">
+                    <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
+                        <div className="md:w-16 md:h-16 w-16 h-16 ml-4 ">
                             <Link href="/profile">
                                 <Image
                                     src={post.postedBy.imageURL}
                                     width={64} height={64}
-                                    className='rounded-full'
+                                    className='rounded-full border-2 border-[#FE8088]'
                                     alt='Profile photo'
-                                    layout='responsive'
+                                    
                                 />
                             </Link>
                         </div>
@@ -148,7 +163,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                         </div>
                     </div>
                     <div className='px-8'>
-                        <p className='text-sm text-gray-600 font-semibold flex flex-wrap'>
+                        <p className='mt-3 text-sm text-gray-600 font-semibold flex flex-wrap'>
                             <span className='mr-2'>{post.caption.replace(regexp, '')}</span>
                             {post.caption.match(regexp)?.map((tag, i) => (
                                 <Link href={`/tags/${tag.slice(1)}`} key={i} className='mr-2 font-bold cursor-pointer'>
@@ -158,18 +173,18 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
 
 
                         </p>
-                        <div className='mt-10 px-0'>
+                        <div className='mt-8 px-0'>
                             {!session ? (
                                 <div className='flex justify-center items-center'>
                                     <p className='text-sm text-gray-500 font-semibold'>
                                         <span className='mr-2'>To like or comment, </span>
-                                        <button onClick={()=> signIn('google')} className='text-primary font-bold'>
+                                        <button onClick={() => signIn('google')} className='text-primary font-bold'>
                                             Log in
                                         </button>
                                     </p>
                                 </div>)
                                 : (
-                                    <LikeButton handleLike={handleLike} handleDislike={handleDislike} />
+                                    <LikeButton handleLike={handleLike} handleDislike={handleDislike} likes={post.likes} />
                                 )}
                         </div>
                         <Comments />
