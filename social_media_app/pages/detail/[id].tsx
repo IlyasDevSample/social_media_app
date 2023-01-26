@@ -155,7 +155,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                 <div className='lg:mt-10 mt-10'>
                     <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
                         <div className="md:w-16 md:h-16 w-16 h-16 ml-4 ">
-                            <Link href="/profile">
+                            <Link href={`/profile/${post.postedBy._id}`}>
                                 <Image
                                     src={post.postedBy.imageURL}
                                     width={64} height={64}
@@ -167,7 +167,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                         </div>
 
                         <div className='pt-2'>
-                            <Link href="/profile">
+                            <Link href={`/profile/${post.postedBy._id}`}>
                                 <div className='flex flex-col items-start gap-2'>
                                     <p className='flex gap-2 items-center md:text-sm font-bold text-primary'>
                                         {post.postedBy.userName.split('@')[0]}
