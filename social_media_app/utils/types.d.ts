@@ -36,3 +36,10 @@ export interface IPost {
     video: video;
     topic: string;
 };
+
+export type User = postedBy & {
+    _createdAt: string,
+    _updatedAt: string,
+    _type: string,
+}
+
