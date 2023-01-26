@@ -9,7 +9,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 
 const Navbar = () => {
-    const { data: session } = useSession();
+    const { data: session }: any = useSession();
 
     return (
         <div className="border-b border-gray-200">
@@ -34,7 +34,7 @@ const Navbar = () => {
                                 </button>
                             </Link>
 
-                            <Link href='/profile' className='flex items-center justify-center'>
+                            <Link href={`/profile/${session.user.id}`} className='flex items-center justify-center'>
                                 <button>
                                     <Image className='rounded-full cursor-pointer' src={session?.user?.image as string} alt="profile picture" width={40} height={40} />
                                 </button>
