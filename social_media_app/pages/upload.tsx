@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { FaCloudUploadAlt, FaSpinner } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
@@ -11,6 +11,8 @@ import { client as sanityClient } from '../utils/sanityClient'
 import { SanityAssetDocument } from '@sanity/client'
 import { GetServerSideProps } from 'next'
 import { topics } from '../utils/constants'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Upload: NextPageWithLayout = () => {
     const router = useRouter()
@@ -20,6 +22,19 @@ const Upload: NextPageWithLayout = () => {
     const [caption, setCaption] = useState('')
     const [selectedCategory, setSelectedCategory] = useState(topics[0].name)
     const [savingPost, setSavingPost] = useState(false)
+
+    const toastError = useCallback((text: string) => {
+        toast.error(text, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            }
+        )}, [])
 
     const uploadVideo = async (e: any) => {
         setIsLoading(true)
@@ -46,7 +61,10 @@ const Upload: NextPageWithLayout = () => {
     }
 
     const handlePost = async () => {
-        if (!videoFile || !caption || !selectedCategory) return
+        if (!videoFile || !caption || !selectedCategory) {
+            toastError('Please fill all the fields')
+            return
+        }
 
         setSavingPost(true)
 
@@ -66,9 +84,12 @@ const Upload: NextPageWithLayout = () => {
         }
     }
 
+    
+
 
     return (
         <div className='h-[100vh] bg-[#f8f8f8] flex justify-center items-start'>
+            <ToastContainer />
             <div className="bg-white lg:rounded-lg w-full lg:w-[1000px] flex justify-center px-14 py-4 mt-1 flex-wrap md:flex-nowrap">
                 <div>
                     <div>
