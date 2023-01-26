@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { client as sanityClient } from "../../utils/sanityClient"
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "GET") {
         // getting all users
-        sanityClient.fetch(`*[_type == "user"]`).then((users) => {
-            res.status(200).json(users)
-        })
+        const data = await sanityClient.fetch(`*[_type == "user"]`)
+        res.status(200).json(data)
     }
 }
 

@@ -152,7 +152,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
                 </div>
             </div>
             <div className='relative w-[1000px] md:w-[900px] lg:w-[500px] overflow-y-scroll lg:h-[100vh] pb-2'>
-                <div className='lg:mt-20 mt-10'>
+                <div className='lg:mt-10 mt-10'>
                     <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
                         <div className="md:w-16 md:h-16 w-16 h-16 ml-4 ">
                             <Link href="/profile">
@@ -191,7 +191,7 @@ const DetailId: NextPageWithLayout<Props> = ({ postData }) => {
 
 
                         </p>
-                        <div className='mt-8 px-0'>
+                        <div className='mt-8 px-0 mb-3'>
                             {!session ? (
                                 <div className='flex justify-center items-center'>
                                     <p className='text-sm text-gray-500 font-semibold'>

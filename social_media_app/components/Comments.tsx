@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { GoVerified } from 'react-icons/go'
@@ -19,6 +19,7 @@ interface IProps {
 const Comments = ({ commentsList, setInputIsOnFocus, handleComment, isPosingComment, setIsPosingComment }: IProps) => {
     const { data: session }: any = useSession()
     const [comment, setComment] = useState('')
+    const [showComments, setShowComments] = useState(false)
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -32,13 +33,61 @@ const Comments = ({ commentsList, setInputIsOnFocus, handleComment, isPosingComm
         }
     }
 
+    const handleCommentHashTag = useCallback((text: string) => {
+        const words = text.split(' ')
+        const newWords = words.map(word => {
+            if (word.startsWith('#')) {
+                return (
+                    <Link href={`/tags/${word.slice(1)}`} key={word}>
+                        <span className='text-[#FE8088] font-semibold hover:underline'>
+                            {word + ' '}
+                        </span>
+                    </Link>
+                )
+            } else {
+                return word + ' '
+            }
+        })
+
+        return newWords
+
+    }, [])
+
+    useEffect(() => {
+        setShowComments(true)
+    }, [])
+
+    
     return (
-        <div className='relative mt-3 border-gray-200 px-1 bg-[#F8F8F8] border rounded-sm lg:pb-0 pb-[100px]'>
+        <div className={`relative mt-3 border-gray-200 px-1 bg-[#F8F8F8] border rounded-sm ${session && 'pb-[50px]'}`}>
             <div className="overflow-scroll h-[300px] lg:h-[290px]">
                 {commentsList?.length > 0 ? (
                     commentsList.map((comment: comment) => (
-                        <div key={comment._id}>
-                            {comment.commentText}
+                        <div key={comment._id} className='p-2 items-center'>
+                            <Link href={`/profile/${comment.postedBy._id}`}>
+                                <div className='flex items-center gap-3 hover:bg-primary transition-all p-2 cursor-pointer font-semibold rounded' >
+                                    <div className="w-12 h-12">
+                                        <Image
+                                            src={comment.postedBy.imageURL}
+                                            alt="Picture of the User"
+                                            width={64}
+                                            height={64}
+                                            className='rounded-full '
+                                        />
+                                    </div>
+
+                                    <div className='flex flex-col flex-1'>
+                                        <p className='font-semibold text-primary text-sm lowercase flex items-center'>
+                                            {comment.postedBy.userName.split('@')[0]}
+                                            <GoVerified className='inline text-blue-500 ml-1' />
+                                        </p>
+                                        <p className='text-gray-700 text-sm '>
+                                            {showComments && handleCommentHashTag(comment.commentText)}
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </Link>
                         </div>
                     ))
 

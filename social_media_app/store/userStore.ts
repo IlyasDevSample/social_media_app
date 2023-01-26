@@ -5,14 +5,14 @@ import { User } from '../utils/types';
 
 export interface IUserStore {
     users: User[];
-    fetchAllUsers: () => Promise<void>;
+    fetchAllUsers: (id: String) => Promise<void>;
 }
 
 export const useUserStore = create<IUserStore>((set) => ({
     users: [],
-    fetchAllUsers: async () => {
+    fetchAllUsers: async (id) => {
         const { data } = await axios.get<User[]>('/api/users');
-        set({ users: data });
+        set({ users: data.filter((user) => user._id !== id) });
     },
 }));
   
