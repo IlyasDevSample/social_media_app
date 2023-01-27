@@ -182,19 +182,20 @@ export const topicPostsQuery = (topic: string | string[]) => {
       postedBy->{
         _id,
         userName,
-        image
+        imageURL
       },
    likes,
   
-      comments[]{
-        comment,
-        _key,
-        postedBy->{
+   comments[]->{
+    _id,
+    commentText,
+    postedBy->{
         _id,
         userName,
-        image
-      },
+        imageURL
       }
+    },
+    topic
     }`;
 
   return query;
