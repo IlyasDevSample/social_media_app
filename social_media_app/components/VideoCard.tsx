@@ -15,13 +15,14 @@ interface IProps {
     setIsMuted: (value: boolean) => void
 }
 
+const regexp = /#\S+/g;
 
 const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
     const [isHover, setIsHover] = useState(true)
     const [isPlaying, setIsPlaying] = useState(true)
     const videoRef = useRef<HTMLVideoElement>(null)
     const { height, width } = useWindowDimensions();
-    
+
     const handlePlay = () => {
         if (videoRef?.current?.paused) {
             videoRef.current.play()
@@ -68,23 +69,23 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
     }, [videoRef, height])
 
     return (
-        <div className='flex flex-col border-b-2 border-gray-200 pb-6 '>
+        <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
             <div>
-                <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
+                <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded items-center md:items-start'>
 
-                    <div className="md:w-16 md:h-16 w-10 h-10">
+                    <div className="md:w-16 md:h-16 w-14 h-14">
                         <Link href={`/profile/${post.postedBy._id}`}>
                             <Image
                                 src={post.postedBy.imageURL}
-                                width={62} height={62}
-                                className='rounded-full'
+                                width={64} height={64}
+                                className='rounded-full border-2'
                                 alt='Profile photo'
-                                layout='responsive'
+                                
                             />
                         </Link>
                     </div>
 
-                    <div className='pt-2'>
+                    <div className='pt-2 flex-1'>
                         <Link href={`/profile/${post.postedBy._id}`}>
                             <div className='flex items-center gap-2'>
                                 <p className='flex gap-2 items-center md:text-sm font-bold text-primary'>
@@ -96,10 +97,20 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
                                 </p>
                             </div>
                         </Link>
+                        <p className='mt-1 mb-2 md:mb-0 text-sm text-gray-600 font-semibold flex flex-wrap'>
+                            <span className='mr-2'>{post.caption.replace(regexp, '')}</span>
+                            {post.caption.match(regexp)?.map((tag, i) => (
+                                <Link href={`/tags/${tag.slice(1)}`} key={i} className='mr-2 font-bold cursor-pointer'>
+                                    {tag}
+                                </Link>
+                            ))}
+                        </p>
                     </div>
                 </div>
             </div>
-            <div className='lg:ml-20 flex gap-4 md:pl-16 lg:pl-10 justify-center md:justify-start overflow-x-hidden'>
+
+            <div className='lg:ml-12 flex gap-4 md:pl-16 lg:pl-10 justify-center md:justify-start overflow-x-hidden'>
+
                 <div className="rounded-3xl">
                     <div className='relative'>
                         <Link href={`/detail/${post._id}`}>
@@ -114,36 +125,36 @@ const VideoCard: NextPage<IProps> = ({ post, isMuted, setIsMuted }) => {
 
                             </video>
                         </Link>
-                    
-                    {isHover && (
-                        <div
-                            onMouseEnter={() => setIsHover(true)}
-                            onMouseLeave={() => setIsHover(false)}
-                            className='animate-opacity absolute bottom-4 left-1/2  cursor-pointer  -translate-x-1/2 flex gap-28 lg:gap-44 md:gap-36 items-center justify-center'
-                        >
 
-                            {isPlaying ? (
-                                <button onClick={handlePlay} className=' bg-gray-200 rounded-full p-1 opacity-75'>
-                                    <BsFillPauseFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
-                                </button>
-                            ) :
-                                (
-                                    <button onClick={handlePlay} className='bg-gray-200 rounded-full p-1 opacity-75'>
-                                        <BsFillPlayFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
+                        {isHover && (
+                            <div
+                                onMouseEnter={() => setIsHover(true)}
+                                onMouseLeave={() => setIsHover(false)}
+                                className='animate-opacity absolute bottom-4 left-1/2  cursor-pointer  -translate-x-1/2 flex gap-28 lg:gap-44 md:gap-36 items-center justify-center'
+                            >
+
+                                {isPlaying ? (
+                                    <button onClick={handlePlay} className=' bg-gray-200 rounded-full p-1 opacity-75'>
+                                        <BsFillPauseFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
                                     </button>
-                                )}
-                            {isMuted ? (
-                                <button onClick={handleMute} className='bg-gray-200 rounded-full p-1 opacity-75'>
-                                    <HiVolumeOff className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
-                                </button>
-                            ) :
-                                (
+                                ) :
+                                    (
+                                        <button onClick={handlePlay} className='bg-gray-200 rounded-full p-1 opacity-75'>
+                                            <BsFillPlayFill className='text-gray-700 text-2xl md:text-3xl opacity-95' />
+                                        </button>
+                                    )}
+                                {isMuted ? (
                                     <button onClick={handleMute} className='bg-gray-200 rounded-full p-1 opacity-75'>
-                                        <HiVolumeUp className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
+                                        <HiVolumeOff className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
                                     </button>
-                                )}
-                        </div>
-                    )}
+                                ) :
+                                    (
+                                        <button onClick={handleMute} className='bg-gray-200 rounded-full p-1 opacity-75'>
+                                            <HiVolumeUp className='text-gray-700 text-2xl lg:text-3xl opacity-95' />
+                                        </button>
+                                    )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
