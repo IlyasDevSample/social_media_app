@@ -105,63 +105,63 @@ export const allUsersQuery = () => {
 
 export const userCreatedPostsQuery = (userId: string | string[]) => {
   const query = `*[ _type == 'post' && userId == '${userId}'] | order(_createdAt desc){
-      _id,
-       caption,
-         video{
-          asset->{
+        _id,
+        caption,
+          video{
+            asset->{
             _id,
             url
           }
         },
         userId,
-      postedBy->{
-        _id,
-        userName,
-        image
-      },
-   likes,
-  
-      comments[]{
-        comment,
-        _key,
         postedBy->{
+          _id,
+          userName,
+          imageURL
+        },
+        likes,
+        comments[]->{
         _id,
-        userName,
-        image
-      },
-      }
-    }`;
+        commentText,
+        postedBy->{
+            _id,
+            userName,
+            imageURL
+          }
+        },
+        topic
+      }`;
 
   return query;
 };
 
 export const userLikedPostsQuery = (userId: string | string[]) => {
   const query = `*[_type == 'post' && '${userId}' in likes[]._ref ] | order(_createdAt desc) {
-      _id,
-       caption,
-         video{
-          asset->{
-            _id,
-            url
-          }
-        },
-        userId,
-      postedBy->{
+    _id,
+    caption,
+      video{
+        asset->{
         _id,
-        userName,
-        image
-      },
-   likes,
-  
-      comments[]{
-        comment,
-        _key,
-        postedBy->{
-        _id,
-        userName,
-        image
-      },
+        url
       }
+    },
+    userId,
+    postedBy->{
+      _id,
+      userName,
+      imageURL
+    },
+    likes,
+    comments[]->{
+    _id,
+    commentText,
+    postedBy->{
+        _id,
+        userName,
+        imageURL
+      }
+    },
+    topic
     }`;
 
   return query;
