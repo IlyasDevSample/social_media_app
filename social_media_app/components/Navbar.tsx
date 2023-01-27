@@ -60,7 +60,7 @@ const Navbar = () => {
 
                             <Link href={`/profile/${session.user.id}`} className='flex items-center justify-center'>
                                 <button>
-                                    <Image className='rounded-full cursor-pointer' src={session?.user?.image as string} alt="profile picture" width={40} height={40} />
+                                    <Image className='rounded-full cursor-pointer border border-[#FE8088]' src={session?.user?.image as string} alt="profile picture" width={40} height={40} />
                                 </button>
                             </Link>
 
