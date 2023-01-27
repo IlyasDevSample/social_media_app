@@ -61,18 +61,22 @@ const Profile: NextPage<Props> = ({ user, userPosts, userLikedPosts }) => {
                 {showUploads ? (
                     userPosts.length > 0 ? (
                         userPosts.map((post) => (
-                            <VideoCard key={post._id} post={post} isMuted={isMuted} setIsMuted={setIsMuted}/>
+                            <VideoCard key={post._id} post={post} isMuted={isMuted} setIsMuted={setIsMuted} />
                         ))
                     ) : (
-                        <NoResults text='No posts yet' type='video' />
+                        <div className='flex justify-center items-center h-96'>
+                            <NoResults text='No Uploads yet' type='video' />
+                        </div>
                     )
                 ) : (
                     userLikedPosts.length > 0 ? (
                         userLikedPosts.map((post) => (
-                            <VideoCard key={post._id} post={post} isMuted={isMuted} setIsMuted={setIsMuted}/>
+                            <VideoCard key={post._id} post={post} isMuted={isMuted} setIsMuted={setIsMuted} />
                         ))
                     ) : (
-                        <NoResults text='0 Likes on the posts' type='comment' />
+                        <div className='flex justify-center items-center h-96'>
+                            <NoResults text='No Liked Videos yet' type='like' />
+                        </div>
                     )
                 )}
             </div>

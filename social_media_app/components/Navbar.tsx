@@ -10,6 +10,16 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 const Navbar = () => {
     const { data: session }: any = useSession();
+    const [search, setSearch] = React.useState('');
+    const router = useRouter();
+
+    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (search.trim() !== '') {
+            router.push(`/search/${search}`);
+        }
+    }
 
     return (
         <div className="border-b border-gray-200">
@@ -20,8 +30,22 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <div className="">
-                    Search
+                <div className="relative hidden md:block">
+                    <form
+                        className="absolute md:static top-10 -left-20 bg-white"
+                        onSubmit={handleSearch}
+                    >
+                        <input
+                            className="bg-primary p-3 md:text-base font-medium border border-gray-100 focus:outline-none text-gray-900 focus:border-gray-400 w-[300px] md:w-[350px] rounded-full md:top-0"
+                            type="text"
+                            placeholder="Search for videos and accounts"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <button type='submit' className="absolute bg-primary md:right-5 right-6 top-[50%] -translate-y-[44%] border-l border-gray-300 pl-4 text-2xl text-gray-500">
+                            <BiSearch className='text-2xl'/>
+                        </button>
+                    </form>
                 </div>
 
                 <div>
