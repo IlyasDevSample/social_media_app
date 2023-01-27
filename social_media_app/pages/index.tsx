@@ -22,7 +22,7 @@ const Home: NextPage<IProps> = ({ posts }) => {
                     <VideoCard key={post._id} post={post}  isMuted={isMuted} setIsMuted={setIsMuted}/>
                 ))
                 :
-                <NoResults text='No posts yet be the first and post something now' />
+                <NoResults text='No posts yet be the first and post something now' type='video' />
             }
         </div>
     )
