@@ -10,7 +10,7 @@ type User = {
     imageURL: string,
 }
 let userExists: User[] = [];
-
+// server side
 export default NextAuth({
     providers: [
         GoogleProvider({
