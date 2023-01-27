@@ -51,7 +51,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             router.events.off('routeChangeError', handleComplete)
         }
     }, [router.events])
-    
 
     if (isLoading) {
         return (
